@@ -33,37 +33,43 @@ body {
   position: relative;
 }
 
-/* Add the watermark */
+/* MAIN DIAGONAL WATERMARK */
 body::before {
   content: "";
   background: url('logo.png') center center no-repeat;
-  background-size: 75%;     /* adjust size */
-  opacity: 0.06;            /* smooth faded look */
+  background-size: 130%;        /* Increased size */
+  opacity: 0.045;               /* Reduced opacity */
+  transform: rotate(-18deg);    /* Diagonal tilt */
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;              /* stays behind content */
+  top: 50%;
+  left: 50%;
+  width: 120vw;
+  height: 120vh;
+  z-index: -2;
+  transform-origin: center;
+  animation: watermarkFade 8s ease-in-out infinite alternate;
 }
 
+/* Soft breathing animation */
+@keyframes watermarkFade {
+  0% { opacity: 0.03; transform: rotate(-18deg) scale(1); }
+  100% { opacity: 0.06; transform: rotate(-18deg) scale(1.05); }
 }
 
-body::before {
+/* CORNER WATERMARK */
+body::after {
   content: "";
+  background: url('logo.png') bottom right no-repeat;
+  background-size: 140px;    /* Adjust size here */
+  opacity: 0.12;             /* Higher visibility */
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-image: url('logo.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 70%;
-  opacity: 0.07;       /* watermark faintness */
+  bottom: 12px;
+  right: 12px;
+  width: 160px;
+  height: 160px;
   z-index: -1;
 }
-
+  
 /* Header */
 .header {
   background: linear-gradient(180deg, rgba(139,0,0,0.95), rgba(0,0,0,0.95));
