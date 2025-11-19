@@ -21,55 +21,49 @@ body {
   font-family: Montserrat, Arial, sans-serif;
   background: #070707;
   color: var(--white);
-  -webkit-font-smoothing: antialiased;
-
- /* WATERMARK — FIXED FULL PAGE */
-body {
-  margin: 0;
-  font-family: Montserrat, Arial, sans-serif;
-  background: #070707;
-  color: #ffffff;
-  -webkit-font-smoothing: antialiased;
-  position: relative;
+  overflow-x: hidden;
 }
 
-/* MAIN DIAGONAL WATERMARK */
-body::before {
-  content: "";
-  background: url('logo.png') center center no-repeat;
-  background-size: 130%;        /* Increased size */
-  opacity: 0.045;               /* Reduced opacity */
-  transform: rotate(-18deg);    /* Diagonal tilt */
+/* --------------------------- */
+/* FULL PAGE DIAGONAL WATERMARK */
+/* --------------------------- */
+.watermark-bg {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 120vw;
-  height: 120vh;
-  z-index: -2;
-  transform-origin: center;
-  animation: watermarkFade 8s ease-in-out infinite alternate;
+  top: -50px;
+  left: -50px;
+  width: 140%;
+  height: 140%;
+  background-image: url('logo.png');
+  background-size: 520px;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.06;
+  transform: rotate(-22deg);
+  filter: grayscale(100%);
+  pointer-events: none;
+  z-index: -5;
 }
 
-/* Soft breathing animation */
-@keyframes watermarkFade {
-  0% { opacity: 0.03; transform: rotate(-18deg) scale(1); }
-  100% { opacity: 0.06; transform: rotate(-18deg) scale(1.05); }
-}
-
-/* CORNER WATERMARK */
-body::after {
-  content: "";
-  background: url('logo.png') bottom right no-repeat;
-  background-size: 140px;    /* Adjust size here */
-  opacity: 0.12;             /* Higher visibility */
+/* --------------------------- */
+/* CORNER FLOATING LOGO */
+/* --------------------------- */
+.corner-watermark {
   position: fixed;
-  bottom: 12px;
-  right: 12px;
-  width: 160px;
-  height: 160px;
-  z-index: -1;
+  bottom: 25px;
+  right: 25px;
+  width: 100px;
+  opacity: 0.16;
+  animation: floatLogo 7s ease-in-out infinite;
+  z-index: 30;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.15));
 }
-  
+
+@keyframes floatLogo {
+  0%   { transform: translateY(0px) scale(1); opacity: 0.16; }
+  50%  { transform: translateY(-10px) scale(1.05); opacity: 0.22; }
+  100% { transform: translateY(0px) scale(1); opacity: 0.16; }
+}
+
 /* Header */
 .header {
   background: linear-gradient(180deg, rgba(139,0,0,0.95), rgba(0,0,0,0.95));
@@ -92,15 +86,14 @@ body::after {
   padding: 0 18px;
 }
 
-/* Hero Section */
+/* Hero */
 .hero {
   display: flex;
   gap: 20px;
   align-items: center;
-  background: #0d0d0dcc;
+  background: #0d0d0d;
   border-radius: 12px;
   overflow: hidden;
-  backdrop-filter: blur(3px);
 }
 .hero-img {
   flex: 1;
@@ -109,10 +102,7 @@ body::after {
   background-size: cover;
   background-position: center;
 }
-.hero-content {
-  flex: 1;
-  padding: 22px;
-}
+.hero-content { flex: 1; padding: 22px; }
 .badge {
   display: inline-block;
   background: var(--white);
@@ -132,7 +122,7 @@ h2.section-title {
   border-left: 6px solid var(--dark-red);
 }
 
-/* Grid Cards */
+/* Cards Grid */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
@@ -141,13 +131,10 @@ h2.section-title {
 }
 
 .card {
-  background: #0b0b0bcc;
+  background: #0b0b0b;
   border: 1px solid #141414;
   padding: 16px;
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  backdrop-filter: blur(3px);
 }
 .card .title {
   font-weight: 700;
@@ -181,26 +168,21 @@ h2.section-title {
   font-size: 14px;
 }
 
-/* Responsive */
+/* Mobile */
 @media(max-width: 700px) {
-  body::before {
-    background-size: 130%;
-    opacity: 0.08;
-  }
-  .hero {
-    flex-direction: column;
-  }
-  .hero-img {
-    min-height: 140px;
-  }
-  .header h1 {
-    font-size: 22px;
-  }
+  .hero { flex-direction: column; }
+  .hero-img { min-height: 140px; }
+  .header h1 { font-size: 22px; }
+  .corner-watermark { width: 80px; }
 }
 </style>
 </head>
 
 <body>
+
+<!-- WATERMARKS -->
+<div class="watermark-bg"></div>
+<img src="logo.png" class="corner-watermark">
 
 <header class="header">
   <h1>GOURMEAT MAGICIANS</h1>
@@ -209,7 +191,7 @@ h2.section-title {
 
 <main class="container">
 
-  <!-- HERO SECTION -->
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-img"></div>
     <div class="hero-content">
@@ -228,7 +210,6 @@ h2.section-title {
   <section>
     <h2 class="section-title">POWER BOWLS</h2>
     <div class="grid">
-
       <div class="card">
         <div class="title">Power Protein Bowl 🥩</div>
         <div class="desc">Slow-cooked protein + quinoa rice + exotic roasted veggies.</div>
@@ -249,7 +230,6 @@ h2.section-title {
         <div class="price-row"><div>Half</div><div>₹250</div></div>
         <div class="price-row"><div>Full</div><div>₹420</div></div>
       </div>
-
     </div>
   </section>
 
@@ -257,7 +237,6 @@ h2.section-title {
   <section>
     <h2 class="section-title">WRAP MASTERS</h2>
     <div class="grid">
-
       <div class="card">
         <div class="title">Classic Protein Wrap 🌯</div>
         <div class="desc">Whole-grain wrap, grilled protein, crisp greens & light dressing.</div>
@@ -271,7 +250,6 @@ h2.section-title {
         <div class="price-row"><div>Half</div><div>₹200</div></div>
         <div class="price-row"><div>Full</div><div>₹290</div></div>
       </div>
-
     </div>
   </section>
 
@@ -279,28 +257,26 @@ h2.section-title {
   <section>
     <h2 class="section-title">FITNESS COMBOS</h2>
     <div class="grid">
-
       <div class="card">
         <div class="title">Lean Protein Combo 🏋️</div>
-        <div class="desc">Half-bowl + small smoothie — balanced for everyday fitness.</div>
+        <div class="desc">Half bowl + small smoothie — balanced for daily fitness.</div>
         <div class="price-row"><div>Half</div><div>₹240</div></div>
         <div class="price-row"><div>Full</div><div>₹380</div></div>
       </div>
 
       <div class="card">
         <div class="title">Muscle Gain Combo 💥</div>
-        <div class="desc">High-protein bowl + power smoothie for training days.</div>
+        <div class="desc">High-protein bowl + power smoothie for heavy workout days.</div>
         <div class="price-row"><div>Half</div><div>₹260</div></div>
         <div class="price-row"><div>Full</div><div>₹420</div></div>
       </div>
 
       <div class="card">
         <div class="title">Athlete Recovery Combo ⚡</div>
-        <div class="desc">Protein-rich recovery bowl with anti-inflammatory greens.</div>
+        <div class="desc">Protein-rich anti-inflammatory recovery bowl.</div>
         <div class="price-row"><div>Half</div><div>₹280</div></div>
         <div class="price-row"><div>Full</div><div>₹450</div></div>
       </div>
-
     </div>
   </section>
 
@@ -308,17 +284,16 @@ h2.section-title {
   <section>
     <h2 class="section-title">SMALL BITES & ADD-ONS</h2>
     <div class="grid">
-
       <div class="card">
         <div class="title">Magician’s Mini Protein Shots</div>
-        <div class="desc">Tender marinated protein served with signature dips.</div>
+        <div class="desc">Tender marinated protein + signature dips.</div>
         <div class="price-row"><div>Half</div><div>₹130</div></div>
         <div class="price-row"><div>Full</div><div>₹200</div></div>
       </div>
 
       <div class="card">
         <div class="title">Qatar-Style Mini Burger Cup 🍔</div>
-        <div class="desc">Viral mini burgers served in a stylish cup (2 or 4 pcs).</div>
+        <div class="desc">2 or 4 viral-style mini burgers + dips.</div>
         <div class="price-row"><div>Half (2 pcs)</div><div>₹140</div></div>
         <div class="price-row"><div>Full (4 pcs)</div><div>₹230</div></div>
       </div>
@@ -328,15 +303,13 @@ h2.section-title {
         <div class="desc">Lays / Doritos / Too Yumm — any flavour.</div>
         <div class="price-row"><div>Price</div><div>₹40 – ₹60</div></div>
       </div>
-
     </div>
   </section>
 
-  <!-- BEVERAGES -->
+  <!-- DRINKS -->
   <section>
     <h2 class="section-title">BEVERAGES • SMOOTHIES • DETOX</h2>
     <div class="grid">
-
       <div class="card">
         <div class="title">Power Protein Smoothie</div>
         <div class="desc">Banana • Greek Yogurt • Protein • Honey.</div>
@@ -350,7 +323,6 @@ h2.section-title {
         <div class="price-row"><div>Half</div><div>₹90</div></div>
         <div class="price-row"><div>Full</div><div>₹150</div></div>
       </div>
-
     </div>
   </section>
 
@@ -362,4 +334,3 @@ h2.section-title {
 
 </body>
 </html>
-
