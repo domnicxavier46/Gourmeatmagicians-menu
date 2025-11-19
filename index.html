@@ -22,6 +22,28 @@ body {
   background: #070707;
   color: var(--white);
   -webkit-font-smoothing: antialiased;
+
+  /* WATERMARK BACKGROUND */
+  background-image: url('logo.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
+  opacity: 1;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('logo.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
+  opacity: 0.07;       /* watermark faintness */
+  z-index: -1;
 }
 
 /* Header */
@@ -51,9 +73,10 @@ body {
   display: flex;
   gap: 20px;
   align-items: center;
-  background: #0d0d0d;
+  background: #0d0d0dcc;
   border-radius: 12px;
   overflow: hidden;
+  backdrop-filter: blur(3px);
 }
 .hero-img {
   flex: 1;
@@ -94,12 +117,13 @@ h2.section-title {
 }
 
 .card {
-  background: #0b0b0b;
+  background: #0b0b0bcc;
   border: 1px solid #141414;
   padding: 16px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  backdrop-filter: blur(3px);
 }
 .card .title {
   font-weight: 700;
@@ -135,6 +159,10 @@ h2.section-title {
 
 /* Responsive */
 @media(max-width: 700px) {
+  body::before {
+    background-size: 130%;
+    opacity: 0.08;
+  }
   .hero {
     flex-direction: column;
   }
@@ -268,7 +296,7 @@ h2.section-title {
         <div class="title">Qatar-Style Mini Burger Cup 🍔</div>
         <div class="desc">Viral mini burgers served in a stylish cup (2 or 4 pcs).</div>
         <div class="price-row"><div>Half (2 pcs)</div><div>₹140</div></div>
-        <div class="price-row"><div>Full (4 pcs)</id></div><div>₹230</div></div>
+        <div class="price-row"><div>Full (4 pcs)</div><div>₹230</div></div>
       </div>
 
       <div class="card">
@@ -310,4 +338,3 @@ h2.section-title {
 
 </body>
 </html>
-
