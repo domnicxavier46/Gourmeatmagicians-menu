@@ -23,12 +23,30 @@ body {
   color: var(--white);
   -webkit-font-smoothing: antialiased;
 
-  /* WATERMARK BACKGROUND */
-  background-image: url('logo.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 70%;
-  opacity: 1;
+ /* WATERMARK — FIXED FULL PAGE */
+body {
+  margin: 0;
+  font-family: Montserrat, Arial, sans-serif;
+  background: #070707;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+/* Add the watermark */
+body::before {
+  content: "";
+  background: url('logo.png') center center no-repeat;
+  background-size: 75%;     /* adjust size */
+  opacity: 0.06;            /* smooth faded look */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;              /* stays behind content */
+}
+
 }
 
 body::before {
@@ -338,3 +356,4 @@ h2.section-title {
 
 </body>
 </html>
+
